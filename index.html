@@ -51,7 +51,7 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li><a href="https://github.com/arjunan-k/Yums_Chatbot">Github</a></li>
+							<li><a href="https://github.com/arjunan-k/Yums">Github</a></li>
 <!-- 							<li><a href="https://yumschatbot.herokuapp.com/">Chatbot</a></li> -->
 						</ul>
 					</nav>
@@ -468,14 +468,13 @@ if __name__ == "__main__":
     app.run(debug=True)
 </code></pre>
 
-							<p>Since I don't have good experience with the Javascript,
-								I have used a pre build chatbot template and made little changes in the HTML, and CSS to make it a Chatbot for a Restaurant.
+							<p>I have used a JavaScript template and made little changes in the HTML, and CSS to make it a Chatbot for a Restaurant.
 								You can check the code of the template I have used, from the below Github link.</p>
 								<ul class="actions stacked">
-									<li><a href="https://github.com/arjunan-k/Yums_Chatbot/blob/main/static/app.js" class="button primary small">Github</a></li>
+									<li><a href="https://github.com/arjunan-k/Yums/blob/main/app/static/app.js" class="button primary small">Github</a></li>
 								</ul>
 
-								<p>The main change we need to look at the returning of response from the javascript part is listed below.</p>
+								<p>The main change we need to look at the returning of response from the JavaScript part is listed below.</p>
 
 <pre><code>fetch('http://127.0.0.1:5000/predict', {
 	method: 'POST',
