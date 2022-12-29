@@ -1,0 +1,137 @@
+{
+        "intents":
+        [
+
+                {
+                        "tag": "greeting",
+                        "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day", "Whats up", "how are ya", "heyy", "whatsup", "Good day"],
+                        "responses": ["Hey there :)", "Good to see you again!", "Hi there, how can I help?"]
+                },
+
+                {
+                        "tag": "goodbye",
+                        "patterns": ["cya", "see you", "bye bye", "See you later", "Goodbye", "I am Leaving", "Bye", "Have a Good day", "talk to you later", "i got to go", "gtg"],
+                        "responses": ["Sad to see you go :(", "Talk to you later", "Goodbye!", "Come back soon"]
+                },
+
+                {
+                        "tag": "creator",
+                        "patterns": ["what is the name of your developers", "what is the name of your creators", "what is the name of the developers", "what is the name of the creators", "who created you", "your developers", "your creators", "who are your developers", "developers", "you are made by", "you are made by whom", "who created you", "who create you", "creators", "who made you", "who designed you"],
+                        "responses": ["Arjunan K developed me, for his project", "I was developed by Arjunan K", " Arjunan K, A young boy developed me"]
+                },
+
+                {
+                        "tag": "name",
+                        "patterns": ["name", "your name", "do you have a name", "what are you called", "what is your name", "what should I call you", "whats your name?", "what are you", "who are you", "who is this", "what am i chatting to", "who am i taking to", "what are you"],
+                        "responses": ["You can call me Arjunan or Yums Chatbot"]
+                },
+
+                {
+                        "tag": "hours",
+                        "patterns": ["timing of shop", "what is shop timing", "working days", "when are you guys open", "what are your hours", "hours of operation", "when is the shop open", "restaurant timing", "what about hotel timing", "is shop open on saturday", "tell something about hotel timing", "what is the restaurant hours", "when should i come to restaurant", "when should i attend hotel", "what is my restaurant time", "restaurant timing", "timing restaurant", "opens on"],
+                        "responses": ["Restaurant is open 7am-11pm Monday-Sunday!"]
+                },
+
+                {
+                        "tag": "number",
+                        "patterns":["more info", "contact info", "how to contact college", "college telephone number", "college number", "What is your contact no", "Contact number?", "how to call you", "College phone no?", "how can i contact you", "Can i get your phone number", "how can i call you", "phone number", "phone no", "call"],
+                        "responses": ["You can contact at +91-011-2531XXXX"]
+                },
+
+                {
+                        "tag": "food",
+                        "patterns": ["list of foods", "list of foods offered", "list of foods offered in Yums", "what are the food offered in your college?", "foods?", "food options offered", "lunch", "breakfast", "dinner", "supper", "food offered in restaurant", "you offer", "options?", "food available at restaurant?", "food options available at Yums?", "what are the food in Yums?", "what are branches in Yums?", "what are food in Yums?", "foods available in Restaurant?", "can you tell me the food available in YUMS?", "can you tell me the food available in YUMS?", "teas?", "juice", "drink", "ice cream", "cake"],
+                        "responses": ["We offer drinks, Ice-creams, latte, coffee and all veg & non veg items. We are ready to serve what you wish for :)"]
+                },
+
+                {
+                        "tag": "price",
+                        "patterns": ["rates of food", "information about price", "information on fee", "tell me the price", "restaurant rates", "rates", "rates per food", "what is the price of each items", "what is the rate of each drinks", "what is rate", "what is the price", "how much is the rates", "rates for items", "rates", "about the rates", "price", "tell me something about the price"],
+                        "responses": ["For rates and price details, please visit www.yums.in/items/rates."]
+                },
+
+                {
+                        "tag": "location",
+                        "patterns": ["where is the restaurant located", "shop is located at", "where is restaurant", "where is restaurant located", "address of restaurant", "how to reach here", "location", "shop address", "wheres the hotel", "how can I reach here", "whats is the shop address", "what is the address of restaurant", "address", "location"],
+                        "responses": ["Yums Restaurant, New york city, Bayswift. Visit  goo.gl/maps/yums.com for precise location."]
+                },
+
+                {
+                        "tag": "floors",
+                        "patterns": ["how many floors", "floors you have", "size of restaurant", "building size", "How many floors does shop have", "floors in restaurant", "floors in college", "how tall is CBPGEC college building", "floors"],
+                        "responses": ["Yums Restaurant has a total 6 openings across the globe with enough parking and other services nearby. Having a average of 4 floors capacity."]
+                },
+
+                {
+                        "tag": "infrastructure",
+                        "patterns": ["how is shop infrastructure", "infrastructure", "Restaurant infrastructure"],
+                        "responses": ["Our restaurant has Excellent Infrastructure.It is clean with good parking, calm and vibing environment & with super fast Internet Connection."]
+                },
+
+                {
+                        "tag": "menu",
+                        "patterns": ["food menu", "food in shop", "Whats there on menu", "what is available in restaurant", "what foods can we get in shop"],
+                        "responses": ["We serve Bread, Chicken fry, Pizza, Burgar, Coffee, Latte, Tea and much more. We serve what you wish for :)"]
+                },
+
+                {
+                        "tag": "manager",
+                        "patterns": ["Who is the manager", "Where is the manager", "shop manager", "name of it manager"],
+                        "responses": ["Arjunan K is the manager who is available on 24X7"]
+                },
+
+                {
+                        "tag": "facilities",
+                        "patterns": ["What facilities you provide", "Restaurant facility", "What are shop facilities", "facilities", "facilities provided"],
+                        "responses": ["Yums provides fully AC service with internet connection, private cubicle and what you wish for :)"]
+                },
+
+                {
+                        "tag": "Shop stats",
+                        "patterns": ["shop stats", "max number of employees", "number of seats per shops", "number of shops in each location", "maximum number of shops", "maximum capability", "seat allotment", "seats"],
+                        "responses": ["We have 6 branches across world with 3 per each location having 1000 plus members to serve you."
+                        ]
+                },
+
+                {
+                        "tag": "random",
+                        "patterns": ["I love you", "Will you marry me", "Do you love me"],
+                        "responses": ["I am not program for this please ask appropriate query"]
+                },
+
+                {
+                        "tag": "swear",
+                        "patterns": ["go to hell", "fuck", "bitch", "shut up", "hell", "stupid", "idiot", "dumb ass", "asshole", "fucker"],
+                        "responses": ["please use appropriate language", "Maintaining decency would be appreciated"]
+                },
+                {
+                        "tag": "salutaion",
+                        "patterns": ["okk", "okie", "nice work", "well done", "good job", "thanks for the help", "Thank You", "its ok", "Thanks", "k", "ok", "okay"],
+                        "responses": ["I am glad I helped you", "welcome, anything else i can assist you with?"]
+                },
+
+                {
+                        "tag": "task",
+                        "patterns": ["what can you do", "what are the thing you can do", "things you can do", "what can u do for me", "how u can help me", "why i should use you"],
+                        "responses": ["I can answer your questions regarding Yums Restaurant", "You can ask me questions regarding Yums, and I will try to answer them"]
+                },
+
+                {
+                        "tag": "metro",
+                        "patterns":["nearest metro station", "what is the nearest metro station", "which metro station is near", "closest metro station", "which metro station is closest", "nearby metro stations", "metro", "metro station nearby"],
+                        "responses":["New York Bayswift metro station"]
+                },
+
+                {
+                        "tag": "offers",
+                        "patterns":["offers", "offers available", "new offers", "anything new", "Offer yums has", "Yums restaurant offers for me", "Yums restaurant offers for today", "offer", "today offer", "offers you have"],
+                        "responses":["We have so many exciting offers all day based on everyones interest, Please visit www.yums.com to know more :)"]
+                },
+                {
+                        "tag": "payment",
+                        "patterns": ["payment", "what do you accept?", "payment options", "payment available or not?", "cash options", "do you accept card."],
+                        "responses": ["We accept all modes of payments like cash, card, UPI and much more."]
+                }
+
+  ]
+}

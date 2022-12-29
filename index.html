@@ -1,0 +1,716 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Arjunan K - Yums Chatbot</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="icon" href="images\favicon.ico">
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton">
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+
+
+
+						<h1 style="font-size:6rem; font-family: Anton, sans-serif; margin-top:55px;">YUMS RESTAURANT CHATBOT</h1>
+						<p style=margin:0;>
+							This is a complete detail oriented explanation of the machine learning
+							chatbot project made for a restaurant using Natural Language Tool Kit and PyTorch.
+						</br>
+						Made by Arjunan K
+						</p>
+
+
+
+					</header>
+
+
+
+
+
+				<!-- Youtube code -->
+				<iframe style="display: block; border-radius:20px; margin: 10px auto 105px;" width="800" height="450"  src="https://www.youtube.com/embed/FRDPbwh6Ppk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
+
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="https://github.com/arjunan-k/Yums_Chatbot">Github</a></li>
+<!-- 							<li><a href="https://yumschatbot.herokuapp.com/">Chatbot</a></li> -->
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Introduction -->
+							<section id="intro" class="main">
+
+
+								<!-- If you want full pic -->
+								<!-- <span class="image main"><img src="images/pic04.jpg" alt="" /></span> -->
+
+
+								<div class="spotlight">
+									<div class="content">
+
+
+
+										<header class="major">
+											<h2>Yums</h2>
+										</header>
+										<p>
+											Yums is basically a restaurant chatbot assistant machine learning project made by me
+											using PyTorch and Natural Language Toolkit. So on this page I will be explaining each
+											and every step I have taken to make this chatbot from model building, training and
+											all the way up to making user interface using HTML, CSS, and Javascript and deployment in a Flask web application.
+										</p>
+
+
+
+									</div>
+
+									<!-- picture goes here -->
+
+									<span class="image"><img src="images/pic01.gif" alt="" /></span>
+
+
+								</div>
+							</section>
+
+
+
+							<section id="content" class="main">
+								<h2 style="font-size:2.3rem;">Complete Chatbot Pipeline</h2>
+								<ol>
+									<li>Tokenization</li>
+									<li>Stemming</li>
+									<li>Bag of Words</li>
+									<li>Training Data</li>
+									<li>Dataset Class in PyTorch</li>
+									<li>Save the Model</li>
+									<li>Creating a Chat Response</li>
+									<li>Integrating Model to a Website</li>
+									<li>Deployment of Application in Cloud</li>
+								</ol>
+
+
+								<h2>Natural Language Processing Pipeline</h2>
+								The text the user provide to a chatbot have a go through an NLP pipeline first to make it much for meaningful.
+								We will be using NLTK (Natural Language Toolkit) to achieve this pipeline. Following are the major parts of the NLP Pipeline.
+								<ol>
+									<li>Tokenization</li>
+									<li>Stemming</li>
+									<li>Bag of Words</li>
+								</ol>
+
+
+								<h2>Tokenization</h2>
+								<p>
+									Tokenization is essentially splitting a phrase, sentence, paragraph, or an entire text document into smaller units,
+									such as individual words or terms.
+									Each of these smaller units are called tokens (eg: Words, Puntuation, Characters, Numbers). We will be using Punkt as a Package with pre-trained tokenizer.
+								</p>
+								<span class="image main"><img src="images/tokenization.png" alt="" /></span>
+
+									<p>
+									There are numerous uses of doing this. We can use this tokenized form to:
+									<br>a. Count the number of words in the text.
+									<br>b. Count the frequency of the word, that is, the number of times a particular word is present.
+									</p>
+
+<pre><code>from nltk.tokenize import word_tokenize
+text = "SpaceX’s mission is to enable humans to become a spacefaring civilization."
+word_tokenize(text)
+Output: ['SpaceX', '’', 's', 'mission', 'is', 'to', 'enable', 'humans',
+         'to', 'become', 'a', 'spacefaring', 'civilization', '.']
+</code></pre>
+
+
+								<h2>Stemming</h2>
+								<p>Stemming is a natural language processing technique that lowers inflection in words to their root forms,
+									hence aiding in the preprocessing of text, words, and documents for text normalization.
+									Text Normalization is the process of converting a token into its base form. Best practise is giving lowered text input to stemmer.
+								</p>
+								<span class="image main"><img src="images/stemming.png" alt="" /></span>
+<pre>
+<code>from nltk.stem import PorterStemmer
+stemmer = PorterStemmer()
+words = ["organize", "organizes", "organizing"]
+words = [stemmer.stem(w.lower()) for w in words]
+-> ["organ", "organ", "organ"]
+</code>
+</pre>
+
+								<h2>Intents Json</h2>
+								<p>
+									The intents.json file is the main part of our training. It Consist of dictionary keys like tag, patterns,
+									responses and values we setted for the keys. It can be modified based on the needs of our interest.
+									After Training when the model gets a response from the user we will be running
+									it through all words of json possible patterns and giving an appropriate random response from responses list in intents dictionary.
+								</p>
+
+<pre><code>{
+        "intents":
+        [
+
+                {
+                        "tag": "greeting",
+                        "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", Whatsup"],
+                        "responses": ["Hey there :)", "Good to see you", "how can I help"]
+                }
+
+        ]
+}
+</code></pre>
+
+<p>So inorder to loop through all words we need a list of all words from the patterns as a list.</p>
+
+<pre><code>all_words = []
+tags = []
+xy = []
+
+for intent in intents["intents"]:
+    tag = intent["tag"]
+    tags.append(tag)
+
+    for pattern in intent["patterns"]:
+        w = tokenize(pattern)
+        all_words.extend(w)
+        xy.append((w, tag))
+</code></pre>
+
+
+								<h2>Ignoring Some Words</h2>
+
+<pre><code>ignore_words = ["?", ".", ",", "!", "/", "'s"]
+all_words = [stemming(w) for w in all_words if w not in ignore_words]
+</code></pre>
+
+								<h2>Bag of Words</h2>
+								<p>Bag-Of-Words is an algorithm that transforms the text into fixed-length vectors.
+									This is possible by counting the number of times the word is present in a document. </p>
+									<span class="image main"><img src="images/bag of words.png" alt="" /></span>
+<pre><code># Stemming the tokenized_sentence
+tokenized_sentence = [stemming(w) for w in tokenized_sentence]
+bag = np.zeros(len(all_words), dtype=np.float32)
+for idx, w in enumerate(all_words):
+		if w in tokenized_sentence:
+				bag[idx] = 1.0
+return bag
+</code></pre>
+
+								<h2>Training Data</h2>
+								<p></p>
+<pre><code>X_train = []
+y_train = []
+
+for (pattern_sentence, tag) in xy:
+    bag = bag_of_words(pattern_sentence, all_words)
+    X_train.append(bag)
+    label = tags.index(tag)
+    y_train.append(label)   # No need of OnehotEncoding, CrossEntropy Loss is used here.
+
+X_train = np.array(X_train)
+y_train = np.array(y_train)
+</code></pre>
+
+
+
+								<h2>Dataset Class in PyTorch</h2>
+								<p>We cannot directly give the data we created to Pytorch.
+									It must inherits some features of a Dataset class in Pytorch. After creating the dataset
+									we also need to follow a workflow like calling the class, loading and much more like below.</p>
+									<span class="image main"><img src="images/pytorch workflow.png" alt="" /></span>
+<pre><code>class ChatDataset(Dataset):
+    def __init__(self):
+        self.n_samples = len(X_train)
+        self.x_data = X_train
+        self.y_data = y_train
+
+    # dataset[idx]
+    def __getitem__(self, index):
+        return self.x_data[index], self.y_data[index]
+
+    def __len__(self):
+        return self.n_samples
+
+# Number of samples in the training data.
+batch_size = 8
+
+dataset = ChatDataset()
+
+# if num_workers=2 shows error, then use 0 in windows.
+# We have at most 2 workers simultaneously putting data into RAM (Multi-Processing/Multi-Threading)
+train_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+</code></pre>
+
+								<h3>Feedforward Neural Network</h3>
+								<p>PyTorch provides the torch.nn module to help us in creating and training of the neural network.
+									We are creating a class which inherits from nn.Module having a Feedforward Neural Network with 2 hidden layers.
+									<br>
+									A feedforward neural network is a type of artificial neural network in which nodes’ connections do not form a loop.
+									Often referred to as a multi-layered network of neurons, feedforward neural networks are so named because all information
+									flows in a forward manner only.
+									<br>
+									The purpose of feedforward neural networks is to approximate functions.
+									There is a classifier using the formula y = f(x).
+									This assigns the value of input x to the category y.
+									The feedfоrwаrd netwоrk will mар y = f (x, θ).It then memorizes the value of θ that most closely approximates the function.
+
+									<br>
+									<h4>A Feedforward Neural Network’s Layers</h4>
+									<ul>
+										<li>Layer of input</li>
+										<p>It contains the neurons that receive input. The data is subsequently passed on to the next tier.
+											The input layer’s total number of neurons is equal to the number of variables in the dataset.</p>
+
+										<li>Hidden layer</li>
+										<p>This is the intermediate layer, which is concealed between the input and output layers.
+											This layer has a large number of neurons that perform alterations on the inputs.
+											They then communicate with the output layer.</p>
+
+										<li>Output layer</li>
+										<p>It is the last layer and is depending on the model’s construction. Additionally,
+											the output layer is the expected feature, as you are aware of the desired outcome.</p>
+									</ul>
+								<span class="image main"><img src="images/Feedforward Neural Network.png" alt="" /></span>
+
+								<p>In our Neural Net, Bag of Words is taken as input. Input Size is the Number of Patterns. Then there is 2 Hidden Layer.
+									The Output Size is Number of Classes. We apply Softmax and apply probability for each class.
+									Hidden Size can be changed, but Input Output Size is kept constant. Activation function ReLu (Rectified Linear Unit -
+									It is a piecewise linear function that will output the input directly if it is positive, otherwise, it will output zero.)
+									is used in between the layers.
+									CrossEntropyLoss take care of the activation and softmax.</p>
+<pre><code>import torch.nn as nn
+
+class NeuralNet(nn.Module):
+    def __init__(self, input_size, hidden_size, num_classes):
+        super(NeuralNet, self).__init__()
+        self.l1 = nn.Linear(input_size, hidden_size)
+        self.l2 = nn.Linear(hidden_size, hidden_size)
+        self.l3 = nn.Linear(hidden_size, num_classes)
+        self.relu = nn.ReLU()
+
+    def forward(self, x):
+        out = self.l1(x)
+        out = self.relu(out)
+        out = self.l2(out)
+        out = self.relu(out)
+        out = self.l3(out)
+        # No Activation and Softmax, Since we apply CrossEntropyLoss this gets already applied.
+        return out
+
+input_size = len(X_train[0])  # Or len(all_words)
+hidden_size = 8
+ouput_size = len(tags)
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+model = NeuralNet(input_size=input_size,
+                  hidden_size=hidden_size,
+                  num_classes=ouput_size).to(device)
+</code></pre>
+
+								<p>Learning Rate is an important hyperparameter in Gradient Descent.
+
+									<br>
+									Gradient descent (GD) is an iterative first-order optimisation algorithm used to find a local minimum/maximum
+									of a given function. This method is commonly used in machine learning (ML) and deep learning(DL)
+									to minimise a cost/loss function (e.g. in a linear regression).
+									<br>
+
+									<br>
+									Its value determines how fast the Neural Network would converge to minima.
+									Usually, we choose a learning rate and depending on the results change its value to get the optimal value for LR.
+									If the learning rate is too low for the Neural Network the process of convergence would be very slow and if it’s too
+									high the converging would be fast but there is a chance that the loss might overshoot.
+									So we usually tune our parameters to find the best value for the learning rate.</p>
+
+<pre><code># loss and optimizer
+learning_rate = 0.001
+# Epochs - Number of complete passes through the training dataset.
+num_epochs = 1000
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+for epoch in range(num_epochs):
+    for (words, labels) in train_loader:
+        words = words.to(device)
+        labels = labels.to(device=device, dtype=torch.int64)
+
+        # Forward pass
+        outputs = model(words)
+        # if y would be one-hot, we must apply
+        # labels = torch.max(labels, 1)[1]
+        loss = criterion(outputs, labels)
+
+        # Backward and optimizer step
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+    if (epoch + 1) % 100 == 0:
+        print(f"epoch {epoch + 1}/{num_epochs}, loss={loss.item():.4f}")
+
+print(f"final loss, loss = {loss.item():.4f}")
+</code></pre>
+
+							<h2>Save the Model</h2>
+							<p>After the model creation, we need to save and store the model for later model loading tasks.</p>
+
+<pre><code>data = {
+    "model_state": model.state_dict(),
+    "input_size": input_size,
+    "output_size": ouput_size,
+    "hidden_size": hidden_size,
+    "all_words": all_words,
+    "tags": tags
+}
+
+filename = "data.pth"
+torch.save(data, filename)
+</code></pre>
+
+							<h2>Creating a Chat Response</h2>
+							<p>Now we need a function to load our model and make a response function for our input message.</p>
+
+<pre><code>filename = "data.pth"
+data = torch.load(filename)
+
+input_size = data["input_size"]
+hidden_size = data["hidden_size"]
+output_size = data["output_size"]
+all_words = data["all_words"]
+tags = data["tags"]
+model_state = data["model_state"]
+
+model = NeuralNet(input_size=input_size, hidden_size=hidden_size, num_classes=output_size).to(device)
+# Loading learned parameters
+model.load_state_dict(model_state)
+# Setting to evaluation mode
+model.eval()
+</code></pre>
+
+							<p>Now creating a specific stand alone get response function to get back a response for the user's input message. <br>
+							The softmax function is a function that turns a vector of K real values into a vector of K real values that sum to 1.
+							The input values can be positive, negative, zero, or greater than one, but the softmax transforms them into values
+							between 0 and 1, so that they can be interpreted as probabilities. If one of the inputs is small or negative,
+							the softmax turns it into a small probability, and if an input is large, then it turns it into a large probability,
+							but it will always remain between 0 and 1.
+							</p>
+<pre><code>def get_response(msg):
+    sentence = tokenize(msg)
+    x = bag_of_words(sentence, all_words)
+    x = x.reshape(1, x.shape[0])
+    # Conerting to torch tensor.
+    x = torch.from_numpy(x).to(device)
+
+    output = model(x)
+    # Return max of the array vector from each row (dim=1)
+    _, predicted = torch.max(output, dim=1)
+    tag = tags[predicted.item()]
+
+    probs = torch.softmax(output, dim=1)
+    prob = probs[0][predicted.item()]
+
+    if prob.item() > 0.75:
+        for intent in intents["intents"]:
+            if tag == intent["tag"]:
+                return random.choice(intent['responses'])
+
+    else:
+        return "I do not understand..."
+</code></pre>
+
+							<h2>Integrate the Model to Website</h2>
+							<ol>
+								<li>Flask for Back-end</li>
+								<li>HTML, CSS & Javascript for Front-end</li>
+							</ol>
+							<p>To integrate a flask web app with the model, we usually follow the similar deployment method.
+								We will store the response to the request in /predict page, and will render that in the Javascript file.</p>
+
+<pre><code>from flask import Flask, render_template, request, jsonify
+from chat import get_response
+
+app = Flask(__name__)
+
+@app.get("/")
+def index_get():
+    return render_template("base.html")
+
+@app.post("/predict")
+def predict():
+    text = request.get_json().get("message")
+    # Check if text is valid
+    response = get_response(text)
+    message = {"answer": response}
+    return jsonify(message)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+</code></pre>
+
+							<p>Since I don't have good experience with the Javascript,
+								I have used a pre build chatbot template and made little changes in the HTML, and CSS to make it a Chatbot for a Restaurant.
+								You can check the code of the template I have used, from the below Github link.</p>
+								<ul class="actions stacked">
+									<li><a href="https://github.com/arjunan-k/Yums_Chatbot/blob/main/static/app.js" class="button primary small">Github</a></li>
+								</ul>
+
+								<p>The main change we need to look at the returning of response from the javascript part is listed below.</p>
+
+<pre><code>fetch('http://127.0.0.1:5000/predict', {
+	method: 'POST',
+	body: JSON.stringify({ message: text1 }),
+	mode: 'cors',
+	headers: {
+		'Content-Type': 'application/json'
+	},
+})
+</code></pre>
+
+								<p>So in this way we can set the front-end and back-end to make an interactive website to integrate with our chatbot.</p>
+								<h2>Deployment to Cloud</h2>
+								<p>After this we can deploy the model to a cloud platform by providing the required files mentioned below.
+									Here I am using Heroku as a cloud platform, since it provides free hosting service.</p>
+								<ol>
+
+									<li>requirements.txt</li>
+									<p>In Python requirement.txt file is a type of file that usually stores information about all the libraries, modules, and
+										packages in itself that are used while developing a particular project. It also stores all files and packages on which that project is dependent or
+										requires to run. Typically this file "requirement.txt" is stored (or resides) in the root directory of your projects.
+										It helps us in several ways, even when we revisit our project in the future, as it solves almost all compatibility issues.
+										If you ever work on any Python project or developed any project, you surely know that we usually require several numbers of packages.
+										However, while developing a project, we generally used a particular version of packages. Later on, the package manager or maintainer may make some changes,
+										and these modifications can easily break your entire application. Therefore, it is too much work to keep track of every modification in the packages.
+										Specifically, where the project is way too big, it is essential to keep track of each package we are using to avoid unexpected surprises.</p>
+
+									<li>runtime.txt</li>
+									<p>It's mainly for web application hosts to detect the runtime of your application/program so that
+										when you spin up your app in those services (i.e. IBM cloud in your post, Heroku, Docker, etc),
+										they spin up the correct environment to run your code. Runtime. It contains the version of python which we used to develope our project.
+										It is useful because it is possible that someone might be using python 2.0 whereas someone else might be using python 3
+										for running/developing the same project .</p>
+
+									<li>WSGI</li>
+									<p>The Web Server Gateway Interface (or “WSGI” for short) is a standard interface between web servers and Python web application frameworks.
+										By standardizing behavior and communication between web servers and Python web frameworks,
+										WSGI makes it possible to write portable Python web code that can be deployed in any WSGI-compliant web server. I have used Waitress as WSGI.
+										<br>
+										Waitress is a pure-python WSGI server that claims “very acceptable performance”.
+											It does offer some nice functionality that Gunicorn doesn’t have (e.g. HTTP request buffering).</p>
+
+										<li>nltk.txt</li>
+										<p>It is used to store information about the pre build tokenizer in NLTK that is used in the project. Here I have used punkt.</p>
+										<li>Procfile</li>
+										<p>Procfile is a file that specifies the commands that are executed by an Heroku app on startup.
+											While it is not necessary to include a Procfile for Heroku deployment,
+											a Procfile allows for more startup configuration and the definition of multiple processes that run separate dynos.</p>
+
+										<li>.gitignore</li>
+										<p>.gitignore file - ensuring that any files that match the patterns in the file are not considered for addition to a repository.
+											You may already have a .gitignore in the root of your application folder, which matches certain patterns -
+											yet still want to configure it to ignore additional folders.</p>
+								</ol>
+								<h2 style="text-align: center;">CHATBOT IN BUSINESS ?</h2>
+								After building the chatbot I thought, How it could be used to help customers of the business.
+								It is clear that lots of companies are using the chatbot on their websites. But does it really worth the money
+								replacing a customer service offered by humans. Let's look at some use cases:
+								<br>
+								<br>
+								<ol>
+									<li>24/7 Availability <br>
+									Customers don’t need to wait for the next available operator when chatbots are part of the communication strategy.</li>
+									<br>
+									<li>Consistency in Answers <br>
+										The use of chatbots can help businesses maintain a great level of consistency in answers and improve customer experience with the brand.</li>
+									<br>
+									<li>Multilingual <br>
+										Your business can program the sales bot to answer queries in the language of customers and expand the reach to new markets or territories.</li>
+									<br>
+									<li>Omni-channel <br>
+										AI-powered bots come with omni-channel messaging support features which help customers communicate with businesses through various channels such as websites, Facebook, etc. </li>
+										<br>
+										<li>Instant Response <br>
+											Chatbots can handle the queries of thousands of customers instantly and helps to improve the average response time.</li>
+									<br>
+									<li>Applicable to Multiple Industries <br>
+									 Instead of a human it can be trained to use in any industry like Healthcare, Banking & Financial Sector, Education, HR,
+									 Retail and Travel & Tourism easily with a short period of time without much cost.</li>
+									<br>
+								 <li>Endless patience <br>
+									While dealing with the customers, humans sometimes lose their patience, bots do not.</li>
+								<br>
+								<li>Personalization <br>
+									They can store and leverage your interaction history
+									with them to provide more personalized interaction. In customer service, for instance, they could remember
+									the customer’s name and their ticket number.</li>
+								<br>
+								<li>Convenient for introverts <br>
+									Not everyone relishes constant human interactions. Chatbots give introverted users the possibility to have their
+									issues addressed and their questions answered without necessarily talking to a live agent.</li>
+								</ol>
+								Even though chatbot has some problems when it comes to Maintenance, Creation, Question Handling and Technical for a non tech
+								person. Still the pros easily overcome these issues.
+								So let's think about installing them.
+								<br>
+								<p></p>
+								<br>
+								<!-- <section id="content" class="main">
+									<h3>Preformatted</h3>
+									<pre><code>
+	i = 0;
+	while (!deck.isInOrder()) {
+	print 'Iteration ' + i;
+	deck.shuffle();
+	i++;
+	}
+
+	print 'It took ' + i + ' iterations to sort the deck.';
+								</code></pre>
+								</section> -->
+
+								<section id="second" class="main special">
+									<header class="major">
+										<h2>THANK YOU</h2>
+									</header>
+									</footer>
+								</section>
+
+							</section>
+
+
+
+							<!-- <section id="content" class="main">
+								<div class="box alt">
+									<div class="row gtr-uniform">
+										<div class="col-12"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
+										<div class="col-6"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+										<div class="col-6"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+										<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
+										<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
+										<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+									</div>
+								</div>
+								<h3>Left &amp; Right</h3>
+								<p><span class="image left"><img src="images/pic05.jp" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat aip veroeros consequat. Etiam tempus lorem ipsum.</p>
+								<p><span class="image right"><img src="images/pic05.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus..</p>
+							</section> -->
+
+
+							<!-- <section id="content" class="main">
+								<span class="image main"><img src="images/pic04.jpg" alt="" /></span>
+								<h2>Thank You</h2>
+								<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis fames ac ante ipsum primis in faucibus.</p>
+								<p>Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Consequat leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit enim turpis lorem ipsum dolor sit amet feugiat. Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet est velit quis lorem.</p>
+								<h2>Tempus veroeros</h2>
+								<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
+							</section> -->
+
+
+						<!-- Second Section -->
+							<!-- <section id="second" class="main special">
+								<header class="major"> -->
+									<!-- <p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
+									posuere. Nulla massa urna, fermentum eget quam aliquet.</p> -->
+									<!-- <h2>Thank You</h2>
+									<ul class="actions special">
+										<li><a href="generic.html" class="button">Learn More</a></li>
+									</ul>
+								</header> -->
+
+								<!-- <p class="content">Nam elementum nisl et mi a commodo porttitor. Morbi sit amet nisl eu arcu faucibus hendrerit vel a risus. Nam a orci mi, elementum ac arcu sit amet, fermentum pellentesque et purus. Integer maximus varius lorem, sed convallis diam accumsan sed. Etiam porttitor placerat sapien, sed eleifend a enim pulvinar faucibus semper quis ut arcu. Ut non nisl a mollis est efficitur vestibulum. Integer eget purus nec nulla mattis et accumsan ut magna libero. Morbi auctor iaculis porttitor. Sed ut magna ac risus et hendrerit scelerisque. Praesent eleifend lacus in lectus aliquam porta. Cras eu ornare dui curabitur lacinia.</p>
+								<footer class="major"> -->
+
+
+
+									<!-- <ul class="actions special">
+										<li><a href="generic.html" class="button">Learn More</a></li>
+									</ul>
+								</footer>
+							</section> -->
+
+						<!-- Get Started -->
+							<!-- <section id="cta" class="main special">
+								<header class="major">
+									<h2>Congue imperdiet</h2>
+									<p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
+									posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
+								</header>
+								<footer class="major">
+									<ul class="actions special">
+										<li><a href="generic.html" class="button primary">Get Started</a></li>
+										<li><a href="generic.html" class="button">Learn More</a></li>
+									</ul>
+								</footer>
+							</section> -->
+
+					</div>
+
+
+				<!-- Footer -->
+
+					<footer id="footer">
+						<!-- <section class="last_thank_you"> -->
+							<!-- <h2>Thank You</h2>
+							<ul class="actions">
+								<li><a href="#wrapper" class="button">Go Home</a></li> -->
+							<!-- </ul> -->
+						<!-- </section> -->
+
+						<!-- <section>
+							<h2>Etiam feugiat</h2>
+							<dl class="alt">
+								<dt>Address</dt>
+								<dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
+								<dt>Phone</dt>
+								<dd>(000) 000-0000 x 0000</dd>
+								<dt>Email</dt>
+								<dd><a href="#">information@untitled.tld</a></dd>
+							</dl>
+							<ul class="icons">
+								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
+							</ul>
+						</section> -->
+
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
